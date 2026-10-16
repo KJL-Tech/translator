@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: entre-nous-pl-fr
+    runtime: node
+    region: frankfurt
+    plan: free
+    numInstances: 1
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeployTrigger: off
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 22
+      - key: TRANSLATION_PROVIDER
+        value: openai
+      - key: OPENAI_TRANSLATION_MODEL
+        value: gpt-realtime-translate
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: DEMO_PIN
+        generateValue: true
+      - key: MAX_SESSION_SECONDS
+        value: 300
+      - key: MAX_CONCURRENT_SESSIONS
+        value: 2
+      - key: MAX_TOTAL_AUDIO_SECONDS
+        value: 3600
+      - key: OPENAI_SOURCE_TRANSCRIPTION
+        value: false

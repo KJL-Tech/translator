@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#173f36" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="description" content="Prywatna rozmowa głosowa z tłumaczeniem polski–francuski." />
+  <title>Entre nous · Polski ↔ Français</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="brandbar"><a class="brand" href="/" aria-label="Entre nous">entre nous<span>●</span></a><span class="language-pill">POLSKI <span>↔</span> FRANÇAIS</span></header>
+    <section class="intro"><p class="eyebrow" data-i18n="eyebrow">DWA JĘZYKI. JEDNA ROZMOWA.</p><h1 data-i18n="title">Porozmawiajmy.</h1><p data-i18n="modeNote">Ty mówisz po polsku. Druga osoba słyszy po francusku.</p></section>
+    <section class="control-panel card" aria-labelledby="setupHeading">
+      <div class="section-heading"><div><span class="step">01</span><h2 id="setupHeading" data-i18n="setupTitle">Wasze miejsce do rozmowy</h2></div><span id="connectionStatus" class="status-pill" role="status">Gotowe</span></div>
+      <form class="setup-grid" id="setupForm">
+        <label><span data-i18n="roomLabel">Nazwa pokoju</span><input id="roomId" name="roomId" type="text" maxlength="40" autocomplete="off" spellcheck="false" required /></label>
+        <label><span data-i18n="myLanguageLabel">Mój język</span><select id="myLanguage"><option value="pl">Polski / Polonais</option><option value="fr">Français / Francuski</option></select></label>
+        <label><span data-i18n="pinLabel">Kod dostępu</span><input id="demoPin" type="password" autocomplete="off" maxlength="128" required /></label>
+        <input id="peerLanguage" type="hidden" />
+      </form>
+      <div class="join-row"><div class="actions"><button id="connectButton" class="primary-button" type="button" data-i18n="connect">Dołącz do rozmowy</button><button id="disconnectButton" class="secondary-button" type="button" disabled data-i18n="disconnect">Wyjdź</button></div><button id="inviteButton" class="text-button" type="button" data-i18n="invite">Kopiuj zaproszenie ↗</button></div>
+      <p id="inviteFeedback" class="small muted" role="status"></p>
+      <label id="inviteFallback" hidden><span data-i18n="copyLink">Skopiuj ten link</span><input id="inviteUrl" readonly /></label>
+      <p class="privacy-note" data-i18n="inviteNote">Zaproszenie zawiera kod dostępu. Udostępnij je tylko rozmówcy.</p>
+      <p id="errorBanner" class="error-banner" role="alert" hidden></p>
+    </section>
+    <section class="call-card card" aria-labelledby="callHeading">
+      <div class="section-heading"><div><span class="step">02</span><h2 id="callHeading" data-i18n="callTitle">Słuchamy się nawzajem</h2></div><span id="roomStatus" class="small muted">—</span></div>
+      <div class="participants">
+        <article id="speakerPanel" class="participant"><div class="avatar own">●</div><div class="person-info"><h3 data-i18n="mySpeechTitle">Twój mikrofon</h3><p id="myMicState" class="small muted">Wyłączony</p></div><span id="speechStatus" class="live-dot" hidden data-i18n="listeningBadge">Na żywo</span><meter id="micLevel" min="0" max="1" value="0" aria-label="Poziom mikrofonu"></meter></article>
+        <span class="bridge" aria-hidden="true">⇄</span>
+        <article id="listenerPanel" class="participant"><div class="avatar peer">●</div><div class="person-info"><h3 data-i18n="peerPlaybackTitle">Twój rozmówca</h3><p id="peerState" class="small muted" role="status">Czekamy na drugą osobę</p></div><label class="legacy-voice"><span data-i18n="voiceLabel">Głos</span><select id="voiceSelect"></select></label></article>
+      </div>
+      <div class="call-actions"><button id="startSpeechButton" class="primary-button large" type="button" disabled>Włącz mikrofon</button><button id="stopSpeechButton" class="secondary-button large" type="button" disabled>Wyłącz mikrofon</button></div>
+      <p id="callHint" class="call-hint" role="status"></p>
+      <div class="audio-tools"><button id="micTestButton" class="text-button" type="button" data-i18n="micTest">Sprawdź mikrofon</button><button id="testVoiceButton" class="text-button" type="button" data-i18n="enableAudio">Sprawdź dźwięk</button><span id="sessionTimer" class="timer">05:00</span></div>
+      <p id="micTestResult" class="small muted" role="status"></p>
+      <form id="manualForm" class="manual-form"><input id="manualText" type="text" autocomplete="off" maxlength="4000" aria-label="Wypowiedź tekstowa" /><button id="sendTextButton" class="secondary-button" type="submit" disabled>Wyślij</button></form>
+      <p id="sourcePartial" class="partial-line" aria-live="polite"></p>
+      <p id="usageInfo" class="cost-note" hidden></p>
+    </section>
+    <section class="conversation-grid" aria-label="Napisy / Sous-titres">
+      <article class="card transcript-panel"><div class="section-heading"><h2 data-i18n="originalTitle">Oryginał</h2></div><p id="sourceHint" hidden></p><div id="sourceTranscript" class="transcript" aria-live="polite"></div></article>
+      <article class="card transcript-panel"><div class="section-heading"><div><span class="step">03</span><h2 data-i18n="translationTitle">Wasza rozmowa</h2></div><span class="small muted" data-i18n="captions">Napisy na żywo</span></div><p id="transcriptEmpty" class="empty-state" data-i18n="emptyTranscript">Pierwsze słowa pojawią się tutaj.</p><div id="targetTranscript" class="transcript" aria-live="polite" aria-relevant="additions text"></div></article>
+    </section>
+    <aside class="tips"><span class="tip-icon" aria-hidden="true">◎</span><div><strong data-i18n="headphonesTitle">Załóżcie słuchawki.</strong><p data-i18n="headphonesNote">Mówcie naturalnie, zostawiając chwilę na tłumaczenie. Podczas testu pozostawcie stronę otwartą i ekran odblokowany.</p></div></aside>
+    <details class="event-panel"><summary data-i18n="eventsTitle">Szczegóły połączenia</summary><div class="panel-header"><button id="clearLogButton" class="text-button" type="button">Wyczyść</button></div><ol id="eventLog" class="event-log"></ol></details>
+    <footer><span>entre nous · PL / FR</span><p data-i18n="privacyNote">Po włączeniu mikrofonu dźwięk trafia do OpenAI w celu tłumaczenia. Aplikacja nie zapisuje nagrań. Tłumaczenie może zawierać błędy.</p></footer>
+  </main>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
